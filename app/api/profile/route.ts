@@ -15,10 +15,33 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
-    let { data: profile, error: profileError } = await supabase.from("profiles").select("*").eq("id", user.id).single()
+    const { data: allProfiles, error: checkError } = await supabase.from("profiles").select("*").eq("id", user.id)
+
+    if (checkError) {
+      console.error("[v0] Profile lookup error:", checkError)
+      return NextResponse.json({ error: "Failed to fetch profile" }, { status: 500 })
+    }
+
+    console.log("[v0] Found", allProfiles?.length || 0, "profiles for user:", user.id)
+
+    let profile = null
+
+    if (allProfiles && allProfiles.length > 1) {
+      console.log("[v0] Multiple profiles found, using the first one and cleaning up duplicates")
+      profile = allProfiles[0]
+
+      // Delete duplicate profiles (keep the first one)
+      const duplicateIds = allProfiles.slice(1).map((p) => p.id)
+      if (duplicateIds.length > 0) {
+        await supabase.from("profiles").delete().in("id", duplicateIds)
+        console.log("[v0] Cleaned up", duplicateIds.length, "duplicate profiles")
+      }
+    } else if (allProfiles && allProfiles.length === 1) {
+      profile = allProfiles[0]
+    }
 
     // If profile doesn't exist, create it
-    if (profileError && profileError.code === "PGRST116") {
+    if (!profile) {
       console.log("[v0] Profile doesn't exist, creating new profile for user:", user.id)
 
       const { data: newProfile, error: createError } = await supabase
@@ -43,19 +66,16 @@ export async function GET() {
         .single()
 
       if (createError) {
-        console.error("Error creating profile:", createError)
+        console.error("[v0] Error creating profile:", createError)
         return NextResponse.json({ error: "Failed to create profile" }, { status: 500 })
       }
 
       profile = newProfile
-    } else if (profileError) {
-      console.error("Error fetching profile:", profileError)
-      return NextResponse.json({ error: "Failed to fetch profile" }, { status: 500 })
     }
 
     return NextResponse.json({ profile })
   } catch (error) {
-    console.error("Error in GET /api/profile:", error)
+    console.error("[v0] Error in GET /api/profile:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
 }

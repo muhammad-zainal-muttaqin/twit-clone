@@ -3,10 +3,11 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Search, MessageCircle, Edit } from "lucide-react"
+import { Search, MessageCircle, Edit, ArrowLeft } from "lucide-react"
 import { ConversationList } from "@/components/conversation-list"
 import { ChatInterface } from "@/components/chat-interface"
 import { NewMessageDialog } from "@/components/new-message-dialog"
+import Link from "next/link"
 
 interface Conversation {
   id: string
@@ -82,7 +83,14 @@ export default function MessagesPage() {
         {/* Header */}
         <div className="p-4 border-b border-border">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-xl font-bold font-sans">Messages</h1>
+            <div className="flex items-center gap-3">
+              <Link href="/">
+                <Button variant="ghost" size="sm" className="rounded-full p-2">
+                  <ArrowLeft className="h-4 w-4" />
+                </Button>
+              </Link>
+              <h1 className="text-xl font-bold font-sans">Messages</h1>
+            </div>
             <Button size="sm" onClick={() => setShowNewMessage(true)} className="rounded-full">
               <Edit className="h-4 w-4" />
             </Button>

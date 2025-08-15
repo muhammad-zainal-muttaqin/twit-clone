@@ -54,10 +54,15 @@ export function Sidebar({ isMobile, onClose }: SidebarProps) {
 
   const { unreadCount } = useRealtimeNotifications(profile?.profile?.id || "")
 
-  // Update profile navigation link
-  const updatedNavigation = navigation.map((item) =>
-    item.name === "Profile" && profile?.profile ? { ...item, href: `/${profile.profile.username}` } : item,
-  )
+  const updatedNavigation = navigation.map((item) => {
+    if (item.name === "Profile" && profile?.profile) {
+      // Use username if it exists and is valid, otherwise use user ID
+      const profilePath =
+        profile.profile.username && profile.profile.username.length > 0 ? `/${profile.profile.username}` : `/profile`
+      return { ...item, href: profilePath }
+    }
+    return item
+  })
 
   const handleNavClick = () => {
     if (isMobile && onClose) {
@@ -164,7 +169,11 @@ export function Sidebar({ isMobile, onClose }: SidebarProps) {
             <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuItem asChild>
                 <Link
-                  href={`/${profile.profile.username}`}
+                  href={
+                    profile.profile.username && profile.profile.username.length > 0
+                      ? `/${profile.profile.username}`
+                      : `/profile`
+                  }
                   className="flex items-center gap-2"
                   onClick={handleNavClick}
                 >
