@@ -62,7 +62,7 @@ export function TweetComposer({ user, onTweetPosted }: TweetComposerProps) {
   const isOverLimit = remainingChars < 0
 
   return (
-    <div className="border-b border-border bg-background">
+    <div className="border-b border-l border-r border-border bg-background">
       <div className="p-4">
         <form onSubmit={handleSubmit}>
           <div className="flex gap-3">
@@ -80,7 +80,7 @@ export function TweetComposer({ user, onTweetPosted }: TweetComposerProps) {
                 className="w-full bg-transparent text-xl placeholder:text-muted-foreground resize-none border-none outline-none min-h-[120px]"
                 disabled={isPosting}
               />
-              <div className="flex justify-between items-center mt-4">
+              <div className="flex justify-between items-center mt-4 pt-3 border-t border-border/50">
                 <div className="flex gap-4 text-primary">
                   <Button type="button" variant="ghost" size="sm" className="p-2 h-auto">
                     <ImageIcon className="h-5 w-5" />

@@ -279,7 +279,7 @@ export function TweetCard({ tweet, onInteraction }: TweetCardProps) {
 
             <p className="text-card-foreground mb-2 whitespace-pre-wrap text-sm leading-relaxed">{tweet.content}</p>
 
-            <div className="flex items-center justify-between max-w-xs">
+            <div className="flex items-center justify-between max-w-xs pt-2 border-t border-border/50">
               <Button
                 variant="ghost"
                 size="sm"
