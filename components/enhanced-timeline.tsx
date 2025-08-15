@@ -127,7 +127,7 @@ export function EnhancedTimeline({ feedType }: EnhancedTimelineProps) {
 
   if (isLoading) {
     return (
-      <div className="divide-y divide-border">
+      <div className="divide-y divide-border scrollbar-hide">
         {[...Array(5)].map((_, i) => (
           <div key={i} className="p-4 animate-pulse">
             <div className="flex gap-3">
@@ -190,7 +190,7 @@ export function EnhancedTimeline({ feedType }: EnhancedTimelineProps) {
       </div>
 
       {/* Timeline */}
-      <div className="divide-y divide-border">
+      <div className="scrollbar-hide">
         {tweets.map((tweet) => (
           <TweetCard key={tweet.id} tweet={tweet} onInteraction={handleTweetInteraction} />
         ))}

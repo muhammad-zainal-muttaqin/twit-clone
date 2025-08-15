@@ -2,7 +2,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { Home, Search, Bell, Mail, Bookmark, User, Settings, MoreHorizontal, Feather, LogOut, X } from "lucide-react"
+import { Home, Search, Bell, Mail, Bookmark, User, Settings, MoreHorizontal, LogOut, X, Zap, List, Users, Crown, BadgeCheck } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { NotificationBadge } from "./notification-badge"
@@ -18,13 +18,18 @@ import {
 import { signOut } from "@/lib/actions"
 
 const navigation = [
-  { name: "Home", href: "/", icon: Home },
-  { name: "Explore", href: "/explore", icon: Search },
-  { name: "Notifications", href: "/notifications", icon: Bell, showBadge: true },
-  { name: "Messages", href: "/messages", icon: Mail },
-  { name: "Bookmarks", href: "/bookmarks", icon: Bookmark },
-  { name: "Profile", href: "/profile", icon: User },
-  { name: "Settings", href: "/settings", icon: Settings },
+  { name: "Home", href: "/", icon: Home, implemented: true },
+  { name: "Explore", href: "/explore", icon: Search, implemented: true },
+  { name: "Notifications", href: "/notifications", icon: Bell, showBadge: true, implemented: true },
+  { name: "Messages", href: "/messages", icon: Mail, implemented: true },
+  { name: "Grok", href: "/grok", icon: Zap, implemented: false },
+  { name: "Lists", href: "/lists", icon: List, implemented: false },
+  { name: "Bookmarks", href: "/bookmarks", icon: Bookmark, implemented: true },
+  { name: "Communities", href: "/communities", icon: Users, implemented: false },
+  { name: "Premium", href: "/premium", icon: Crown, implemented: false },
+  { name: "Verified Orgs", href: "/verified-orgs", icon: BadgeCheck, implemented: false },
+  { name: "Profile", href: "/profile", icon: User, implemented: true },
+  { name: "More", href: "/more", icon: MoreHorizontal, implemented: false },
 ]
 
 interface Profile {
@@ -55,11 +60,14 @@ export function Sidebar({ isMobile, onClose }: SidebarProps) {
   const { unreadCount } = useRealtimeNotifications(profile?.profile?.id || "")
 
   const updatedNavigation = navigation.map((item) => {
-    if (item.name === "Profile" && profile?.profile) {
+    if (item.name === "Profile" && profile?.profile && item.implemented) {
       // Use username if it exists and is valid, otherwise use user ID
       const profilePath =
         profile.profile.username && profile.profile.username.length > 0 ? `/${profile.profile.username}` : `/profile`
       return { ...item, href: profilePath }
+    }
+    if (!item.implemented) {
+      return { ...item, href: `/feature-not-implemented?feature=${encodeURIComponent(item.name)}` }
     }
     return item
   })
@@ -71,12 +79,7 @@ export function Sidebar({ isMobile, onClose }: SidebarProps) {
   }
 
   return (
-    <div
-      className={cn(
-        "flex h-screen flex-col bg-sidebar border-r border-sidebar-border",
-        isMobile ? "w-64" : "w-16 sm:w-64",
-      )}
-    >
+    <div className={cn("flex h-screen flex-col bg-sidebar border-r border-sidebar-border overflow-y-auto scrollbar-hide", isMobile ? "w-72" : "w-20 sm:w-[275px]")}>
       {/* Mobile Close Button */}
       {isMobile && (
         <div className="flex items-center justify-between p-4 border-b border-sidebar-border">
@@ -88,16 +91,11 @@ export function Sidebar({ isMobile, onClose }: SidebarProps) {
       )}
 
       {/* Logo */}
-      <div
-        className={cn("flex items-center border-b border-sidebar-border", isMobile ? "h-16 px-6" : "h-16 px-3 sm:px-6")}
-      >
-        <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary">
-            <Feather className="h-5 w-5 text-primary-foreground" />
+      <div className={cn("flex items-center border-b border-sidebar-border", isMobile ? "h-16 px-6" : "h-16 px-3 sm:px-6")}>
+        <div className="flex items-center justify-center">
+          <div className="flex h-9 w-9 items-center justify-center rounded-full">
+            <span className="text-2xl leading-none">𝕏</span>
           </div>
-          <span className={cn("text-xl font-bold text-sidebar-foreground font-sans", !isMobile && "hidden sm:block")}>
-            Twitter
-          </span>
         </div>
       </div>
 
@@ -113,30 +111,39 @@ export function Sidebar({ isMobile, onClose }: SidebarProps) {
                   "w-full gap-3 text-base font-medium relative",
                   "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
                   isActive && "bg-sidebar-primary text-sidebar-primary-foreground hover:bg-sidebar-primary",
-                  isMobile ? "justify-start px-3 py-6" : "justify-center sm:justify-start px-2 sm:px-3 py-4 sm:py-6",
+                  !item.implemented && "opacity-60",
+                  isMobile ? "justify-start px-3 py-4" : "justify-center sm:justify-start px-2 sm:px-3 py-3 sm:py-3.5",
                 )}
               >
                 <div className="relative flex-shrink-0">
                   <item.icon className="h-6 w-6" />
                   {item.showBadge && item.name === "Notifications" && <NotificationBadge count={unreadCount} />}
+                  {!item.implemented && (
+                    <div className="absolute -top-1 -right-1 h-2 w-2 bg-muted-foreground rounded-full"></div>
+                  )}
                 </div>
-                <span className={cn(!isMobile && "hidden sm:block")}>{item.name}</span>
+                <span className={cn(!isMobile && "hidden sm:block")}>
+                  {item.name}
+                  {!item.implemented && (
+                    <span className="ml-2 text-xs text-muted-foreground">(Coming Soon)</span>
+                  )}
+                </span>
               </Button>
             </Link>
           )
         })}
       </nav>
 
-      {/* Tweet Button */}
-      <div className="p-2 sm:p-4">
+      {/* Post Button */}
+      <div className="p-3 sm:p-4">
         <Button
           className={cn(
             "bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-full",
-            isMobile ? "w-full py-3" : "w-12 h-12 sm:w-full sm:py-3",
+            isMobile ? "w-full py-3.5" : "w-12 h-12 sm:w-full sm:py-3.5",
           )}
         >
-          <span className={cn(!isMobile && "hidden sm:block")}>Tweet</span>
-          <Feather className={cn("h-5 w-5", !isMobile && "sm:hidden")} />
+          <span className={cn(!isMobile && "hidden sm:block")}>Post</span>
+          <span className={cn("text-base", !isMobile && "sm:hidden")}>𝕏</span>
         </Button>
       </div>
 

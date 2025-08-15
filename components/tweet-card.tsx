@@ -6,7 +6,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Card, CardContent } from "@/components/ui/card"
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -188,7 +188,7 @@ export function TweetCard({ tweet, onInteraction }: TweetCardProps) {
   const handleShareToTwitter = (e: React.MouseEvent) => {
     e.preventDefault()
     const tweetUrl = `${window.location.origin}/${tweet.profiles.username}/status/${tweet.id}`
-    const shareText = `Check out this tweet by ${tweet.profiles.display_name}: ${tweet.content}`
+    const shareText = `Check out this post by ${tweet.profiles.display_name}: ${tweet.content}`
     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(tweetUrl)}`
     window.open(twitterUrl, "_blank", "noopener,noreferrer")
   }
@@ -196,8 +196,8 @@ export function TweetCard({ tweet, onInteraction }: TweetCardProps) {
   const timeAgo = formatDistanceToNow(new Date(tweet.created_at), { addSuffix: true })
 
   return (
-    <Card className="border-0 rounded-none bg-card hover:bg-card/80 transition-colors cursor-pointer">
-      <CardContent className="p-3 sm:p-4">
+    <div className="border-b border-border hover:bg-muted/20 transition-colors cursor-pointer">
+      <div className="p-3 sm:p-4">
         <div className="flex gap-2 sm:gap-3">
           <Link href={`/${tweet.profiles.username}`}>
             <Avatar className="hover:opacity-80 transition-opacity h-8 w-8 sm:h-10 sm:w-10">
@@ -253,7 +253,7 @@ export function TweetCard({ tweet, onInteraction }: TweetCardProps) {
               </Link>
             </div>
 
-            <p className="text-card-foreground mb-3 font-serif whitespace-pre-wrap text-sm sm:text-base leading-relaxed">
+            <p className="text-card-foreground mb-3 whitespace-pre-wrap text-sm sm:text-base leading-relaxed">
               {tweet.content}
             </p>
 
@@ -318,7 +318,7 @@ export function TweetCard({ tweet, onInteraction }: TweetCardProps) {
             </div>
           </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   )
 }

@@ -31,7 +31,7 @@ export function MainLayout({ children }: MainLayoutProps) {
             ? `fixed inset-y-0 left-0 z-50 transform transition-transform duration-300 ease-in-out ${
                 isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
               }`
-            : "relative"
+            : "sticky top-0 h-screen"
         }
       `}
       >
@@ -47,10 +47,7 @@ export function MainLayout({ children }: MainLayoutProps) {
               <Menu className="h-5 w-5" />
             </Button>
             <div className="flex items-center gap-2">
-              <div className="flex h-6 w-6 items-center justify-center rounded-full bg-primary">
-                <span className="text-xs font-bold text-primary-foreground">T</span>
-              </div>
-              <span className="font-bold text-foreground">Twitter</span>
+              <span className="font-bold text-foreground">Home</span>
             </div>
             <div className="w-9" /> {/* Spacer for centering */}
           </div>
@@ -60,7 +57,7 @@ export function MainLayout({ children }: MainLayoutProps) {
       </main>
 
       {/* Right Sidebar - Hidden on mobile and tablet */}
-      <aside className="hidden xl:block">
+      <aside className="hidden xl:block w-[350px] sticky top-0 h-screen">
         <TrendingSidebar />
       </aside>
     </div>

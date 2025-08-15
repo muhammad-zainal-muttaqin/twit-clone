@@ -26,13 +26,7 @@ export default async function Home() {
 
   return (
     <MainLayout>
-      <div className="max-w-2xl mx-auto">
-        {/* Header */}
-        <div className="sticky top-0 bg-background/80 backdrop-blur-md border-b border-border p-4">
-          <h1 className="text-xl font-bold text-foreground">Home</h1>
-        </div>
-
-        {/* Feed Tabs */}
+      <div className="max-w-[600px] mx-auto">
         <HomeTimeline user={user} />
       </div>
     </MainLayout>

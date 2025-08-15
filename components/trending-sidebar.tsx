@@ -44,24 +44,40 @@ export function TrendingSidebar() {
   }
 
   return (
-    <div className="w-80 space-y-4 p-4 h-screen overflow-y-auto">
+    <div className="w-[350px] space-y-4 px-4 pb-4 h-screen overflow-y-auto scrollbar-hide">
       {/* Search */}
-      <div className="sticky top-0 bg-background pb-4">
-        <form onSubmit={handleSearch}>
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-            <Input
-              placeholder="Search Twitter"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 bg-card border-border rounded-full"
-            />
-          </div>
-        </form>
+      <div className="sticky top-0 z-20 border-b border-border" style={{ backgroundColor: '#000000' }}>
+        <div className="py-3" style={{ backgroundColor: '#000000' }}>
+          <form onSubmit={handleSearch}>
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder="Search Twitter"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-10 border-border rounded-full shadow-sm"
+                style={{ backgroundColor: '#000000' }}
+              />
+            </div>
+          </form>
+        </div>
       </div>
 
+      {/* Subscribe to Premium */}
+      <Card className="bg-card border-border rounded-2xl overflow-hidden">
+        <CardContent className="p-4 space-y-2">
+          <p className="font-bold text-card-foreground">Subscribe to Premium</p>
+          <p className="text-sm text-muted-foreground">
+            Subscribe to unlock new features and if eligible, receive a share of revenue.
+          </p>
+          <Button size="sm" className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 w-fit">
+            Subscribe
+          </Button>
+        </CardContent>
+      </Card>
+
       {/* Trending */}
-      <Card className="bg-card border-border">
+      <Card className="bg-card border-border rounded-2xl overflow-hidden">
         <CardHeader>
           <CardTitle className="text-xl font-bold text-card-foreground">What's happening</CardTitle>
         </CardHeader>
@@ -73,11 +89,12 @@ export function TrendingSidebar() {
               <p className="text-sm text-muted-foreground">{trend.posts} Tweets</p>
             </div>
           ))}
+          <button className="text-primary text-sm hover:underline">Show more</button>
         </CardContent>
       </Card>
 
       {/* Who to follow */}
-      <Card className="bg-card border-border">
+      <Card className="bg-card border-border rounded-2xl overflow-hidden">
         <CardHeader>
           <CardTitle className="text-xl font-bold text-card-foreground">Who to follow</CardTitle>
         </CardHeader>
@@ -108,6 +125,7 @@ export function TrendingSidebar() {
               </Button>
             </div>
           ))}
+          <button className="text-primary text-sm hover:underline">Show more</button>
         </CardContent>
       </Card>
     </div>

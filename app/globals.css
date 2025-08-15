@@ -4,69 +4,69 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: #1f2937; /* dark gray */
-  --foreground: #f1f5f9; /* light gray */
-  --card: #ffffff; /* white for post cards */
-  --card-foreground: #374151; /* medium gray for text */
-  --popover: #374151; /* medium gray for overlays */
-  --popover-foreground: #f1f5f9; /* light gray for popover text */
-  --primary: #059669; /* emerald-600 */
-  --primary-foreground: #f1f5f9; /* light gray for primary text */
-  --secondary: #374151; /* medium gray */
-  --secondary-foreground: #f1f5f9; /* light gray for secondary text */
-  --muted: #f1f5f9; /* light gray for muted text */
-  --muted-foreground: #374151; /* medium gray for muted text */
-  --accent: #10b981; /* emerald-500 */
-  --accent-foreground: #ffffff; /* white for accent text */
-  --destructive: #be123c; /* rose-600 for error states */
-  --destructive-foreground: #ffffff; /* white for destructive text */
-  --border: #374151; /* medium gray for borders */
-  --input: #f1f5f9; /* light gray for input fields */
-  --ring: #059669; /* emerald-600 for focus states */
-  --chart-1: #10b981; /* emerald-500 */
-  --chart-2: #374151; /* medium gray */
-  --chart-3: #f1f5f9; /* light gray */
-  --chart-4: #059669; /* emerald-600 */
-  --chart-5: #1f2937; /* dark gray */
-  --radius: 0.5rem; /* for rounded corners */
-  --sidebar: #1f2937; /* dark gray for sidebar */
-  --sidebar-foreground: #f1f5f9; /* light gray for sidebar text */
-  --sidebar-primary: #059669; /* emerald-600 for sidebar highlights */
-  --sidebar-primary-foreground: #f1f5f9; /* light gray */
-  --sidebar-accent: #10b981; /* emerald-500 for accent */
-  --sidebar-accent-foreground: #f1f5f9; /* light gray */
-  --sidebar-border: #374151; /* medium gray for sidebar borders */
-  --sidebar-ring: #059669; /* emerald-600 for sidebar focus states */
+  --background: #ffffff;
+  --foreground: #0f1419;
+  --card: #f7f9f9;
+  --card-foreground: #0f1419;
+  --popover: #ffffff;
+  --popover-foreground: #0f1419;
+  --primary: #1d9bf0; /* X blue */
+  --primary-foreground: #ffffff;
+  --secondary: #eff3f4;
+  --secondary-foreground: #0f1419;
+  --muted: #eff3f4;
+  --muted-foreground: #536471;
+  --accent: #1d9bf0;
+  --accent-foreground: #ffffff;
+  --destructive: #f4212e;
+  --destructive-foreground: #ffffff;
+  --border: #eff3f4;
+  --input: #eff3f4;
+  --ring: #1d9bf0;
+  --chart-1: #1d9bf0;
+  --chart-2: #657786;
+  --chart-3: #aab8c2;
+  --chart-4: #e1e8ed;
+  --chart-5: #14171a;
+  --radius: 0.5rem;
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0f1419;
+  --sidebar-primary: #e6f3ff; /* light blue tint for active */
+  --sidebar-primary-foreground: #0f1419;
+  --sidebar-accent: #f7f9f9;
+  --sidebar-accent-foreground: #0f1419;
+  --sidebar-border: #eff3f4;
+  --sidebar-ring: #1d9bf0;
 }
 
 .dark {
-  --background: #0f172a; /* darker slate */
-  --foreground: #f1f5f9; /* light gray */
-  --card: #1e293b; /* slate-800 for post cards */
-  --card-foreground: #f1f5f9; /* light gray for text */
-  --popover: #1e293b; /* slate-800 for overlays */
-  --popover-foreground: #f1f5f9; /* light gray for popover text */
-  --primary: #10b981; /* emerald-500 */
-  --primary-foreground: #ffffff; /* white for primary text */
-  --secondary: #334155; /* slate-700 */
-  --secondary-foreground: #f1f5f9; /* light gray for secondary text */
-  --muted: #64748b; /* slate-500 for muted text */
-  --muted-foreground: #94a3b8; /* slate-400 for muted text */
-  --accent: #059669; /* emerald-600 */
-  --accent-foreground: #ffffff; /* white for accent text */
-  --destructive: #f43f5e; /* rose-500 for error states */
-  --destructive-foreground: #ffffff; /* white for destructive text */
-  --border: #334155; /* slate-700 for borders */
-  --input: #1e293b; /* slate-800 for input fields */
-  --ring: #10b981; /* emerald-500 for focus states */
-  --sidebar: #0f172a; /* darker slate for sidebar */
-  --sidebar-foreground: #f1f5f9; /* light gray for sidebar text */
-  --sidebar-primary: #10b981; /* emerald-500 for sidebar highlights */
-  --sidebar-primary-foreground: #ffffff; /* white */
-  --sidebar-accent: #059669; /* emerald-600 for accent */
-  --sidebar-accent-foreground: #ffffff; /* white */
-  --sidebar-border: #334155; /* slate-700 for sidebar borders */
-  --sidebar-ring: #10b981; /* emerald-500 for sidebar focus states */
+  --background: #000000;
+  --foreground: #e7e9ea;
+  --card: #16181c;
+  --card-foreground: #e7e9ea;
+  --popover: #16181c;
+  --popover-foreground: #e7e9ea;
+  --primary: #1d9bf0;
+  --primary-foreground: #ffffff;
+  --secondary: #16181c;
+  --secondary-foreground: #e7e9ea;
+  --muted: #202327;
+  --muted-foreground: #71767b;
+  --accent: #1d9bf0;
+  --accent-foreground: #ffffff;
+  --destructive: #f4212e;
+  --destructive-foreground: #ffffff;
+  --border: #2f3336;
+  --input: #202327;
+  --ring: #1d9bf0;
+  --sidebar: #000000;
+  --sidebar-foreground: #e7e9ea;
+  --sidebar-primary: #0a0a0a;
+  --sidebar-primary-foreground: #e7e9ea;
+  --sidebar-accent: #16181c;
+  --sidebar-accent-foreground: #e7e9ea;
+  --sidebar-border: #2f3336;
+  --sidebar-ring: #1d9bf0;
 }
 
 @theme inline {
@@ -114,5 +114,33 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  
+  /* Ensure consistent font family across all text elements */
+  p, span, div, button, input, textarea, h1, h2, h3, h4, h5, h6 {
+    font-family: inherit;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Custom scrollbar for webkit browsers when needed */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted));
+    border-radius: 3px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground));
   }
 }

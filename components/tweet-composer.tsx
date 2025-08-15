@@ -5,7 +5,7 @@ import type React from "react"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Card, CardContent } from "@/components/ui/card"
+
 import { ImageIcon, Smile, Calendar, MapPin, Loader2 } from "lucide-react"
 import { useRouter } from "next/navigation"
 
@@ -62,8 +62,8 @@ export function TweetComposer({ user, onTweetPosted }: TweetComposerProps) {
   const isOverLimit = remainingChars < 0
 
   return (
-    <Card className="border-b border-border rounded-none bg-card">
-      <CardContent className="p-4">
+    <div className="border-b border-border bg-background">
+      <div className="p-4">
         <form onSubmit={handleSubmit}>
           <div className="flex gap-3">
             <Avatar>
@@ -120,7 +120,7 @@ export function TweetComposer({ user, onTweetPosted }: TweetComposerProps) {
                         Posting...
                       </>
                     ) : (
-                      "Tweet"
+                      "Post"
                     )}
                   </Button>
                 </div>
@@ -128,7 +128,7 @@ export function TweetComposer({ user, onTweetPosted }: TweetComposerProps) {
             </div>
           </div>
         </form>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   )
 }
