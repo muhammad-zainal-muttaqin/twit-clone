@@ -56,7 +56,7 @@ A full-featured Twitter clone built with Next.js 15, Supabase, and modern web te
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+
+- Node.js 22+
 - npm or yarn
 - Supabase account
 
