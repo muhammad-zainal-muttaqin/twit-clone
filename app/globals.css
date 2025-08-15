@@ -111,20 +111,29 @@
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
+  
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   }
   
-  /* Ensure consistent font family across all text elements */
-  p, span, div, button, input, textarea, h1, h2, h3, h4, h5, h6 {
-    font-family: inherit;
+  /* Force font family for specific elements that might override */
+  .font-sans {
+    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
   }
+  
+  /* Ensure all text elements use the same font */
+  p, span, div, button, input, textarea, h1, h2, h3, h4, h5, h6, a, label, li, td, th {
+    font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+  }
+  
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+  
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
@@ -133,14 +142,17 @@
   .custom-scrollbar::-webkit-scrollbar {
     width: 6px;
   }
+  
   .custom-scrollbar::-webkit-scrollbar-track {
     background: transparent;
   }
+  
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: hsl(var(--muted));
+    background: var(--muted);
     border-radius: 3px;
   }
+  
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--muted-foreground));
+    background: var(--muted-foreground);
   }
 }

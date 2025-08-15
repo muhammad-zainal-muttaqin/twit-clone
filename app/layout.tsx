@@ -37,6 +37,7 @@ html {
   font-family: ${inter.style.fontFamily};
   --font-sans: ${inter.variable};
   --font-serif: ${manrope.variable};
+  --font-inter: ${inter.variable};
 }
         `}</style>
       </head>
