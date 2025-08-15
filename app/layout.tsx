@@ -1,11 +1,16 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { GeistSans } from "geist/font/sans"
-import { Manrope } from "next/font/google"
+import { Inter, Manrope } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import "./globals.css"
 import { Suspense } from "react"
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+})
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -29,13 +34,13 @@ export default function RootLayout({
       <head>
         <style>{`
 html {
-  font-family: ${GeistSans.style.fontFamily};
-  --font-sans: ${GeistSans.variable};
+  font-family: ${inter.style.fontFamily};
+  --font-sans: ${inter.variable};
   --font-serif: ${manrope.variable};
 }
         `}</style>
       </head>
-      <body className={`${GeistSans.variable} ${manrope.variable} antialiased`}>
+      <body className={`${inter.variable} ${manrope.variable} antialiased`}>
         <Suspense fallback={null}>
           {children}
           <Analytics />
