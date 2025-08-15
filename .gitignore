@@ -25,3 +25,26 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+*.tmp
+
+# Context/temporary files
+user_read_only_context/
+
+# Additional logs and cache
+*.log
+.cache/
+.parcel-cache/
+
+# Coverage reports
+coverage/
+.nyc_output/
