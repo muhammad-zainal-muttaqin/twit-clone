@@ -1,75 +1,76 @@
 # Twitter Clone
 
-A full-featured Twitter clone built with Next.js 15, Supabase, and modern web technologies. Features real-time updates, authentication, and all core social media functionality.
+A full-featured Twitter clone built with Next.js 15, Supabase, and modern web technologies. Features real-time updates, authentication, and comprehensive social media functionality.
 
 [![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/muhammad-zainal-muttaqins-projects/v0-twitter-clone)
 [![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/LdIEzAJRrhh)
 
-## 🚀 Live Demo
+## 🌐 Live Demo
 
 **[https://v0-twitter-clone-gold.vercel.app](https://v0-twitter-clone-gold.vercel.app)**
 
 ## ✨ Features
 
 ### Core Functionality
-- **Authentication** - Sign up, login, logout with email verification
-- **Tweet Management** - Post, like, retweet, reply to tweets with real-time updates
-- **User Profiles** - Customizable profiles with bio, avatar, banner, and follow counts
-- **Follow System** - Follow/unfollow users, view followers/following lists
-- **Timeline Feeds** - "For You" and "Following" personalized feeds with infinite scroll
-- **Search & Explore** - Find tweets, users, hashtags with dedicated explore page
-- **Bookmarks** - Save and organize tweets for later viewing
+- **Authentication** — Sign up, login, logout with email verification
+- **Tweet Management** — Post, like, retweet, reply to tweets with real-time updates
+- **User Profiles** — Customizable profiles with bio, avatar, banner, and follow counts
+- **Follow System** — Follow/unfollow users, view followers/following lists
+- **Timeline Feeds** — "For You" and "Following" personalized feeds with infinite scroll
+- **Search & Explore** — Find tweets, users, hashtags with dedicated explore page
+- **Bookmarks** — Save and organize tweets for later viewing
 
 ### Advanced Features
-- **Real-time Updates** - Live notifications, tweet updates, and messaging
-- **Direct Messaging** - Private conversations with real-time chat interface
-- **Trending Topics** - Discover popular hashtags and trending content
-- **Tweet Sharing** - Share tweets via Web Share API, copy links, or external platforms
-- **Settings Management** - Comprehensive user settings with privacy controls
-- **Notifications System** - Real-time notification badges and timeline
-- **Performance Optimized** - API caching, debounced requests, and memoization
-- **Responsive Design** - Mobile-first design that works on all devices
-- **Dark Theme** - Modern dark theme with custom color palette
+- **Real-time Updates** — Live notifications, tweet updates, and messaging
+- **Direct Messaging** — Private conversations with real-time chat interface
+- **Trending Topics** — Discover popular hashtags and trending content
+- **Tweet Sharing** — Share tweets via Web Share API, copy links, or external platforms
+- **Settings Management** — Comprehensive user settings with privacy controls
+- **Notifications System** — Real-time notification badges and timeline
+- **Performance Optimized** — API caching, debounced requests, and memoization
+- **Responsive Design** — Mobile-first design that works on all devices
+- **Dark Theme** — Modern dark theme with custom color palette
 
 ## 🛠 Tech Stack
 
 ### Frontend
-- **Next.js 15.2.4** - Latest App Router with server components
-- **React 19** - Latest React with concurrent features
-- **TypeScript 5** - Full type safety
-- **Tailwind CSS 4.1.9** - Latest utility-first CSS framework
-- **shadcn/ui** - Modern component library with Radix UI primitives
-- **Lucide React** - Beautiful icon library
+- **Next.js 15.2.4** — Latest App Router with server components
+- **React 19** — Latest React with concurrent features
+- **TypeScript 5** — Full type safety
+- **Tailwind CSS 4.1.9** — Latest utility-first CSS framework
+- **shadcn/ui** — Modern component library with Radix UI primitives
+- **Lucide React** — Beautiful icon library
 
 ### Backend & Database
-- **Supabase** - PostgreSQL database with real-time subscriptions
-- **Next.js API Routes** - Server-side API endpoints
-- **Supabase Auth** - Authentication with email verification
-- **Row Level Security** - Database-level security policies
+- **Supabase** — PostgreSQL database with real-time subscriptions
+- **Next.js API Routes** — Server-side API endpoints
+- **Supabase Auth** — Authentication with email verification
+- **Row Level Security** — Database-level security policies
 
 ### Performance & Analytics
-- **Vercel Analytics** - Web analytics and insights
-- **Vercel Speed Insights** - Core Web Vitals monitoring
-- **API Caching** - Intelligent caching with configurable TTL
-- **React Hook Form** - Optimized form handling with Zod validation
+- **Vercel Analytics** — Web analytics and insights
+- **Vercel Speed Insights** — Core Web Vitals monitoring
+- **API Caching** — Intelligent caching with configurable TTL
+- **React Hook Form** — Optimized form handling with Zod validation
 
-## 🏃‍♂️ Quick Start
+## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 - Supabase account
 
 ### 1. Clone Repository
-\`\`\`bash
+```bash
 git clone https://github.com/your-username/twitter-clone.git
 cd twitter-clone
 npm install
-\`\`\`
+```
 
 ### 2. Environment Setup
 Create `.env.local` file:
-\`\`\`env
+
+```env
 # Supabase Configuration
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
@@ -88,27 +89,29 @@ POSTGRES_HOST=your_postgres_host
 # App Configuration
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL=http://localhost:3000
-\`\`\`
+```
 
 ### 3. Database Setup
-Run the SQL scripts in Supabase SQL Editor:
-\`\`\`bash
-# Execute these scripts in order:
-scripts/01-restore-twitter-schema.sql
-scripts/02-create-functions-and-triggers.sql
-scripts/07-create-bookmarks-table.sql
-\`\`\`
+Execute the SQL scripts in Supabase SQL Editor in the following order:
+
+```bash
+# Run these scripts in your Supabase SQL Editor:
+1. scripts/01-restore-twitter-schema.sql
+2. scripts/02-create-functions-and-triggers.sql
+3. scripts/07-create-bookmarks-table.sql
+```
 
 ### 4. Run Development Server
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+```
 
-Visit `http://localhost:3000` to see the app.
+Visit [http://localhost:3000](http://localhost:3000) to see the application.
 
 ## 📁 Project Structure
 
-\`\`\`
+```
+twitter-clone/
 ├── app/                    # Next.js 15 app directory
 │   ├── api/               # API routes (tweets, users, messages, etc.)
 │   ├── auth/              # Authentication pages (login, signup)
@@ -136,45 +139,45 @@ Visit `http://localhost:3000` to see the app.
 │   └── utils.ts          # Utility functions
 ├── scripts/               # Database SQL scripts
 └── styles/                # Global styles
-\`\`\`
+```
 
 ## 🔧 Key Features Implementation
 
 ### Real-time System
-- **Supabase Subscriptions** - Live updates for tweets, messages, notifications
-- **Optimistic Updates** - Instant UI feedback with server reconciliation
-- **Connection Management** - Automatic reconnection and error handling
+- **Supabase Subscriptions** — Live updates for tweets, messages, notifications
+- **Optimistic Updates** — Instant UI feedback with server reconciliation
+- **Connection Management** — Automatic reconnection and error handling
 
 ### Performance Optimization
-- **API Caching** - 30s-5min TTL based on data volatility
-- **Debounced Interactions** - Prevents spam and reduces server load
-- **Memoized Components** - React.memo and useMemo for expensive operations
-- **Infinite Scroll** - Efficient pagination for large datasets
+- **API Caching** — 30s-5min TTL based on data volatility
+- **Debounced Interactions** — Prevents spam and reduces server load
+- **Memoized Components** — React.memo and useMemo for expensive operations
+- **Infinite Scroll** — Efficient pagination for large datasets
 
 ### Security
-- **Row Level Security** - Database-level access control
-- **Server Actions** - Secure server-side operations
-- **Input Validation** - Zod schemas for all forms
-- **CSRF Protection** - Built-in Next.js security features
+- **Row Level Security** — Database-level access control
+- **Server Actions** — Secure server-side operations
+- **Input Validation** — Zod schemas for all forms
+- **CSRF Protection** — Built-in Next.js security features
 
 ## 🚀 Deployment
 
 ### Vercel (Recommended)
-1. Connect GitHub repository to Vercel
-2. Add all environment variables in Vercel dashboard
+1. Connect your GitHub repository to Vercel
+2. Add all environment variables in the Vercel dashboard
 3. Deploy automatically on every push
 4. Enable Vercel Analytics and Speed Insights
 
 ### Manual Deployment
-\`\`\`bash
+```bash
 npm run build
 npm start
-\`\`\`
+```
 
 ## 🔒 Environment Variables
 
 | Variable | Description | Required |
-|----------|-------------|----------|
+|----------|-------------|:--------:|
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | ✅ |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anonymous key | ✅ |
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key | ✅ |
@@ -184,19 +187,23 @@ npm start
 
 ## 📊 Performance Metrics
 
-- **Lighthouse Score** - 95+ across all metrics
-- **Core Web Vitals** - Excellent ratings with Speed Insights
-- **API Response Time** - <100ms average with caching
-- **Real-time Latency** - <50ms for live updates
-- **Bundle Size** - Optimized with tree shaking and code splitting
+- **Lighthouse Score** — 95+ across all metrics
+- **Core Web Vitals** — Excellent ratings with Speed Insights
+- **API Response Time** — <100ms average with caching
+- **Real-time Latency** — <50ms for live updates
+- **Bundle Size** — Optimized with tree shaking and code splitting
 
 ## 🤝 Contributing
 
+We welcome contributions! Please follow these steps:
+
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
 5. Open a Pull Request
+
+Please ensure your code follows the existing style and includes appropriate tests.
 
 ## 📝 License
 
@@ -204,7 +211,7 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🙏 Acknowledgments
 
-- Built with [v0.app](https://v0.app) - AI-powered development platform
+- Built with [v0.app](https://v0.app) — AI-powered development platform
 - UI components from [shadcn/ui](https://ui.shadcn.com)
 - Icons from [Lucide React](https://lucide.dev)
 - Hosted on [Vercel](https://vercel.com)
