@@ -197,36 +197,40 @@ export function TweetCard({ tweet, onInteraction }: TweetCardProps) {
 
   return (
     <Card className="border-0 rounded-none bg-card hover:bg-card/80 transition-colors cursor-pointer">
-      <CardContent className="p-4">
-        <div className="flex gap-3">
+      <CardContent className="p-3 sm:p-4">
+        <div className="flex gap-2 sm:gap-3">
           <Link href={`/${tweet.profiles.username}`}>
-            <Avatar className="hover:opacity-80 transition-opacity">
+            <Avatar className="hover:opacity-80 transition-opacity h-8 w-8 sm:h-10 sm:w-10">
               <AvatarImage src={tweet.profiles.avatar_url || "/placeholder.svg"} />
-              <AvatarFallback className="bg-muted text-muted-foreground">
+              <AvatarFallback className="bg-muted text-muted-foreground text-xs sm:text-sm">
                 {tweet.profiles.display_name?.charAt(0) || tweet.profiles.username?.charAt(0) || "U"}
               </AvatarFallback>
             </Avatar>
           </Link>
-          <div className="flex-1">
-            <div className="flex items-center gap-2 mb-1">
-              <Link href={`/${tweet.profiles.username}`} className="hover:underline">
-                <span className="font-semibold text-card-foreground">{tweet.profiles.display_name}</span>
-              </Link>
-              {tweet.profiles.verified && (
-                <div className="h-4 w-4 rounded-full bg-primary flex items-center justify-center">
-                  <span className="text-xs text-primary-foreground">✓</span>
-                </div>
-              )}
-              <Link href={`/${tweet.profiles.username}`} className="hover:underline">
-                <span className="text-muted-foreground">@{tweet.profiles.username}</span>
-              </Link>
-              <span className="text-muted-foreground">·</span>
-              <span className="text-muted-foreground">{timeAgo}</span>
-              <div className="ml-auto">
+          <div className="flex-1 min-w-0">
+            <div className="flex items-start justify-between mb-1">
+              <div className="flex items-center gap-1 sm:gap-2 min-w-0 flex-1">
+                <Link href={`/${tweet.profiles.username}`} className="hover:underline min-w-0">
+                  <span className="font-semibold text-card-foreground text-sm sm:text-base truncate">
+                    {tweet.profiles.display_name}
+                  </span>
+                </Link>
+                {tweet.profiles.verified && (
+                  <div className="h-3 w-3 sm:h-4 sm:w-4 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
+                    <span className="text-xs text-primary-foreground">✓</span>
+                  </div>
+                )}
+                <Link href={`/${tweet.profiles.username}`} className="hover:underline min-w-0 hidden sm:block">
+                  <span className="text-muted-foreground text-sm truncate">@{tweet.profiles.username}</span>
+                </Link>
+                <span className="text-muted-foreground hidden sm:inline">·</span>
+                <span className="text-muted-foreground text-xs sm:text-sm flex-shrink-0">{timeAgo}</span>
+              </div>
+              <div className="flex-shrink-0 ml-2">
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
-                      <MoreHorizontal className="h-4 w-4" />
+                    <Button variant="ghost" size="sm" className="h-6 w-6 sm:h-8 sm:w-8 p-0">
+                      <MoreHorizontal className="h-3 w-3 sm:h-4 sm:w-4" />
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
@@ -242,47 +246,57 @@ export function TweetCard({ tweet, onInteraction }: TweetCardProps) {
                 </DropdownMenu>
               </div>
             </div>
-            <p className="text-card-foreground mb-3 font-serif whitespace-pre-wrap">{tweet.content}</p>
-            <div className="flex items-center justify-between max-w-md">
+
+            <div className="sm:hidden mb-1">
+              <Link href={`/${tweet.profiles.username}`} className="hover:underline">
+                <span className="text-muted-foreground text-xs">@{tweet.profiles.username}</span>
+              </Link>
+            </div>
+
+            <p className="text-card-foreground mb-3 font-serif whitespace-pre-wrap text-sm sm:text-base leading-relaxed">
+              {tweet.content}
+            </p>
+
+            <div className="flex items-center justify-between max-w-xs sm:max-w-md">
               <Button
                 variant="ghost"
                 size="sm"
-                className="flex items-center gap-2 text-muted-foreground hover:text-primary"
+                className="flex items-center gap-1 sm:gap-2 text-muted-foreground hover:text-primary p-1 sm:p-2"
                 onClick={(e) => e.preventDefault()}
               >
-                <MessageCircle className="h-4 w-4" />
-                <span className="text-sm">{tweet.reply_count}</span>
+                <MessageCircle className="h-3 w-3 sm:h-4 sm:w-4" />
+                <span className="text-xs sm:text-sm">{tweet.reply_count}</span>
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
                 className={cn(
-                  "flex items-center gap-2 text-muted-foreground hover:text-accent",
+                  "flex items-center gap-1 sm:gap-2 text-muted-foreground hover:text-accent p-1 sm:p-2",
                   isRetweeted && "text-accent",
                 )}
                 onClick={handleRetweet}
                 disabled={isLoading}
               >
-                <Repeat2 className="h-4 w-4" />
-                <span className="text-sm">{retweetCount}</span>
+                <Repeat2 className="h-3 w-3 sm:h-4 sm:w-4" />
+                <span className="text-xs sm:text-sm">{retweetCount}</span>
               </Button>
               <Button
                 variant="ghost"
                 size="sm"
                 className={cn(
-                  "flex items-center gap-2 text-muted-foreground hover:text-red-500",
+                  "flex items-center gap-1 sm:gap-2 text-muted-foreground hover:text-red-500 p-1 sm:p-2",
                   isLiked && "text-red-500",
                 )}
                 onClick={handleLike}
                 disabled={isLoading}
               >
-                <Heart className={cn("h-4 w-4", isLiked && "fill-current")} />
-                <span className="text-sm">{likeCount}</span>
+                <Heart className={cn("h-3 w-3 sm:h-4 sm:w-4", isLiked && "fill-current")} />
+                <span className="text-xs sm:text-sm">{likeCount}</span>
               </Button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
-                    <Share className="h-4 w-4" />
+                  <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary p-1 sm:p-2">
+                    <Share className="h-3 w-3 sm:h-4 sm:w-4" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
