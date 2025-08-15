@@ -1,35 +1,36 @@
-# Twitter Clone
+# Twitter Clone 🐦
 
-A full-featured Twitter clone built with Next.js 15, Supabase, and modern web technologies. Features real-time updates, authentication, and comprehensive social media functionality.
+A modern, full-featured Twitter/X clone built with **Next.js 15**, **Supabase**, and cutting-edge web technologies. Features real-time updates, authentication, and comprehensive social media functionality that mirrors the original Twitter experience.
 
 [![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/muhammad-zainal-muttaqins-projects/v0-twitter-clone)
 [![Built with v0](https://img.shields.io/badge/Built%20with-v0.app-black?style=for-the-badge)](https://v0.app/chat/projects/LdIEzAJRrhh)
+[![Next.js](https://img.shields.io/badge/Next.js-15.2.4-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![Supabase](https://img.shields.io/badge/Supabase-Real--time-black?style=for-the-badge&logo=supabase)](https://supabase.com/)
 
 ## 🌐 Live Demo
 
-**[https://v0-twitter-clone-gold.vercel.app](https://v0-twitter-clone-gold.vercel.app)**
+**[🚀 View Live Demo](https://v0-twitter-clone-gold.vercel.app)**
 
-## ✨ Features
+## ✨ Key Features
 
-### Core Functionality
-- **Authentication** — Sign up, login, logout with email verification
-- **Tweet Management** — Post, like, retweet, reply to tweets with real-time updates
-- **User Profiles** — Customizable profiles with bio, avatar, banner, and follow counts
-- **Follow System** — Follow/unfollow users, view followers/following lists
-- **Timeline Feeds** — "For You" and "Following" personalized feeds with infinite scroll
-- **Search & Explore** — Find tweets, users, hashtags with dedicated explore page
-- **Bookmarks** — Save and organize tweets for later viewing
+### 🎯 Core Social Media Features
+- **🔐 Authentication** — Sign up, login, logout with email verification
+- **📝 Tweet Management** — Post, like, retweet, reply with real-time updates
+- **👤 User Profiles** — Customizable profiles with bio, avatar, and follow counts
+- **👥 Follow System** — Follow/unfollow users, view followers/following lists
+- **📱 Timeline Feeds** — "For You" and "Following" personalized feeds
+- **🔍 Search & Explore** — Find tweets, users, hashtags with dedicated explore page
+- **🔖 Bookmarks** — Save and organize tweets for later viewing
 
-### Advanced Features
-- **Real-time Updates** — Live notifications, tweet updates, and messaging
-- **Direct Messaging** — Private conversations with real-time chat interface
-- **Trending Topics** — Discover popular hashtags and trending content
-- **Tweet Sharing** — Share tweets via Web Share API, copy links, or external platforms
-- **Settings Management** — Comprehensive user settings with privacy controls
-- **Notifications System** — Real-time notification badges and timeline
-- **Performance Optimized** — API caching, debounced requests, and memoization
-- **Responsive Design** — Mobile-first design that works on all devices
-- **Dark Theme** — Modern dark theme with custom color palette
+### 🚀 Advanced Features
+- **⚡ Real-time Updates** — Live notifications, tweet updates, and messaging
+- **💬 Direct Messaging** — Private conversations with real-time chat interface
+- **🔥 Trending Topics** — Discover popular hashtags and trending content
+- **📤 Tweet Sharing** — Share tweets via Web Share API or external platforms
+- **⚙️ Settings Management** — Comprehensive user settings with privacy controls
+- **🔔 Notifications System** — Real-time notification badges and timeline
+- **📱 Responsive Design** — Mobile-first design that works on all devices
+- **🌙 Dark Theme** — Modern dark theme with custom color palette
 
 ## 🛠 Tech Stack
 
@@ -56,21 +57,25 @@ A full-featured Twitter clone built with Next.js 15, Supabase, and modern web te
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 22+
-- npm or yarn
-- Supabase account
+- **Node.js 22+** (Latest LTS recommended)
+- **npm** or **yarn** or **pnpm**
+- **Supabase account** ([Sign up here](https://supabase.com/))
 
 ### 1. Clone Repository
-\`\`\`bash
+```bash
 git clone https://github.com/your-username/twitter-clone.git
 cd twitter-clone
 npm install
-\`\`\`
+# or
+yarn install
+# or
+pnpm install
+```
 
 ### 2. Environment Setup
-Create `.env.local` file:
+Create `.env.local` file in the root directory:
 
-\`\`\`env
+```env
 # Supabase Configuration
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
@@ -89,28 +94,32 @@ POSTGRES_HOST=your_postgres_host
 # App Configuration
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL=http://localhost:3000
-\`\`\`
+```
 
 ### 3. Database Setup
 Execute the SQL scripts in Supabase SQL Editor in the following order:
 
-\`\`\`bash
+```bash
 # Run these scripts in your Supabase SQL Editor:
 1. scripts/01-restore-twitter-schema.sql
 2. scripts/02-create-functions-and-triggers.sql
 3. scripts/07-create-bookmarks-table.sql
-\`\`\`
+```
 
 ### 4. Run Development Server
-\`\`\`bash
+```bash
 npm run dev
-\`\`\`
+# or
+yarn dev
+# or
+pnpm dev
+```
 
-Visit [http://localhost:3000](http://localhost:3000) to see the application.
+Visit **[http://localhost:3000](http://localhost:3000)** to see the application.
 
 ## 📁 Project Structure
 
-\`\`\`
+```
 twitter-clone/
 ├── app/                    # Next.js 15 app directory
 │   ├── api/               # API routes (tweets, users, messages, etc.)
@@ -139,7 +148,7 @@ twitter-clone/
 │   └── utils.ts          # Utility functions
 ├── scripts/               # Database SQL scripts
 └── styles/                # Global styles
-\`\`\`
+```
 
 ## 🔧 Key Features Implementation
 
@@ -169,21 +178,21 @@ twitter-clone/
 4. Enable Vercel Analytics and Speed Insights
 
 ### Manual Deployment
-\`\`\`bash
+```bash
 npm run build
 npm start
-\`\`\`
+```
 
 ## 🔒 Environment Variables
 
-| Variable | Description | Required |
-|----------|-------------|:--------:|
-| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | ✅ |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anonymous key | ✅ |
-| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key | ✅ |
-| `POSTGRES_URL` | PostgreSQL connection string | ✅ |
-| `NEXT_PUBLIC_SITE_URL` | Your app's production URL | ✅ |
-| `NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL` | Development redirect URL | ✅ |
+| Variable | Description | Required | Default |
+|----------|-------------|:--------:|---------|
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | ✅ | - |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase anonymous key | ✅ | - |
+| `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key | ✅ | - |
+| `POSTGRES_URL` | PostgreSQL connection string | ✅ | - |
+| `NEXT_PUBLIC_SITE_URL` | Your app's production URL | ✅ | `http://localhost:3000` |
+| `NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL` | Development redirect URL | ✅ | `http://localhost:3000` |
 
 ## 📊 Performance Metrics
 
@@ -193,15 +202,27 @@ npm start
 - **Real-time Latency** — <50ms for live updates
 - **Bundle Size** — Optimized with tree shaking and code splitting
 
+## 🐛 Troubleshooting
+
+### Common Issues
+1. **Font not loading** — Ensure Inter font is properly imported
+2. **Real-time not working** — Check Supabase connection and RLS policies
+3. **Build errors** — Clear `.next` folder and reinstall dependencies
+
+### Development Tips
+- Use `npm run dev` for development
+- Check browser console for errors
+- Verify environment variables are set correctly
+
 ## 🤝 Contributing
 
 We welcome contributions! Please follow these steps:
 
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Commit your changes: `git commit -m 'Add amazing feature'`
-4. Push to the branch: `git push origin feature/amazing-feature`
-5. Open a Pull Request
+1. **Fork** the repository
+2. **Create** a feature branch: `git checkout -b feature/amazing-feature`
+3. **Commit** your changes: `git commit -m 'Add amazing feature'`
+4. **Push** to the branch: `git push origin feature/amazing-feature`
+5. **Open** a Pull Request
 
 Please ensure your code follows the existing style and includes appropriate tests.
 
@@ -211,13 +232,19 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🙏 Acknowledgments
 
-- Built with [v0.app](https://v0.app) — AI-powered development platform
-- UI components from [shadcn/ui](https://ui.shadcn.com)
-- Icons from [Lucide React](https://lucide.dev)
-- Hosted on [Vercel](https://vercel.com)
-- Database by [Supabase](https://supabase.com)
-- Fonts: Inter and Manrope from Google Fonts
+- **Built with** [v0.app](https://v0.app) — AI-powered development platform
+- **UI components** from [shadcn/ui](https://ui.shadcn.com)
+- **Icons** from [Lucide React](https://lucide.dev)
+- **Hosted on** [Vercel](https://vercel.com)
+- **Database by** [Supabase](https://supabase.com)
+- **Fonts**: Inter and Manrope from Google Fonts
+
+## 🔗 Links
+
+- **[Live Demo](https://v0-twitter-clone-gold.vercel.app)**
+- **[Continue building on v0.app](https://v0.app/chat/projects/LdIEzAJRrhh)**
+- **[Report Issues](https://github.com/your-username/twitter-clone/issues)**
 
 ---
 
-**[Continue building on v0.app](https://v0.app/chat/projects/LdIEzAJRrhh)**
+**⭐ Star this repository if you find it helpful!**
