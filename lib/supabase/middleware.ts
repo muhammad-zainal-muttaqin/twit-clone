@@ -16,7 +16,7 @@ export async function updateSession(request: NextRequest) {
     })
   }
 
-  let supabaseResponse = NextResponse.next({
+  const supabaseResponse = NextResponse.next({
     request,
   })
 
@@ -29,11 +29,10 @@ export async function updateSession(request: NextRequest) {
           return request.cookies.getAll()
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
-          supabaseResponse = NextResponse.next({
-            request,
+          cookiesToSet.forEach(({ name, value, options }) => {
+            request.cookies.set(name, value)
+            supabaseResponse.cookies.set(name, value, options)
           })
-          cookiesToSet.forEach(({ name, value, options }) => supabaseResponse.cookies.set(name, value, options))
         },
       },
     },
@@ -60,7 +59,6 @@ export async function updateSession(request: NextRequest) {
 
   if (!isAuthRoute) {
     try {
-      // Refresh session if expired - required for Server Components
       const {
         data: { user },
         error,
@@ -72,15 +70,22 @@ export async function updateSession(request: NextRequest) {
         error ? `error: ${error.message}` : "",
       )
 
-      if (!user) {
+      if (!user && (!error || error.message !== "Invalid Refresh Token: Refresh Token Not Found")) {
         console.log("[v0] Redirecting to login from:", request.nextUrl.pathname)
         const redirectUrl = new URL("/auth/login", request.url)
         return NextResponse.redirect(redirectUrl)
       }
+
+      if (error && error.message === "Invalid Refresh Token: Refresh Token Not Found") {
+        console.log("[v0] Refresh token error, but allowing request to continue")
+        // Don't redirect immediately, let the app handle the session refresh
+      }
     } catch (error) {
       console.log("[v0] Middleware auth error:", error)
-      const redirectUrl = new URL("/auth/login", request.url)
-      return NextResponse.redirect(redirectUrl)
+      if (error instanceof Error && !error.message.includes("refresh_token_not_found")) {
+        const redirectUrl = new URL("/auth/login", request.url)
+        return NextResponse.redirect(redirectUrl)
+      }
     }
   }
 

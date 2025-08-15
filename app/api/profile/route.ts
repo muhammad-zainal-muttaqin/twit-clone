@@ -46,31 +46,51 @@ export async function GET() {
 
       const { data: newProfile, error: createError } = await supabase
         .from("profiles")
-        .insert({
-          id: user.id,
-          username: user.email?.split("@")[0] || `user_${user.id.slice(0, 8)}`,
-          display_name: user.user_metadata?.full_name || user.email?.split("@")[0] || "User",
-          bio: null,
-          avatar_url: user.user_metadata?.avatar_url || null,
-          banner_url: null,
-          website: null,
-          location: null,
-          verified: false,
-          tweets_count: 0,
-          following_count: 0,
-          followers_count: 0,
-          created_at: new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        })
+        .upsert(
+          {
+            id: user.id,
+            username: user.email?.split("@")[0] || `user_${user.id.slice(0, 8)}`,
+            display_name: user.user_metadata?.full_name || user.email?.split("@")[0] || "User",
+            bio: null,
+            avatar_url: user.user_metadata?.avatar_url || null,
+            banner_url: null,
+            website: null,
+            location: null,
+            verified: false,
+            tweets_count: 0,
+            following_count: 0,
+            followers_count: 0,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          },
+          {
+            onConflict: "id",
+            ignoreDuplicates: false,
+          },
+        )
         .select()
         .single()
 
       if (createError) {
         console.error("[v0] Error creating profile:", createError)
-        return NextResponse.json({ error: "Failed to create profile" }, { status: 500 })
-      }
 
-      profile = newProfile
+        // Try to fetch the profile that might have been created by another concurrent request
+        const { data: existingProfile, error: fetchError } = await supabase
+          .from("profiles")
+          .select("*")
+          .eq("id", user.id)
+          .single()
+
+        if (fetchError || !existingProfile) {
+          console.error("[v0] Failed to fetch existing profile after create error:", fetchError)
+          return NextResponse.json({ error: "Failed to create profile" }, { status: 500 })
+        }
+
+        profile = existingProfile
+        console.log("[v0] Using existing profile created by concurrent request")
+      } else {
+        profile = newProfile
+      }
     }
 
     return NextResponse.json({ profile })
