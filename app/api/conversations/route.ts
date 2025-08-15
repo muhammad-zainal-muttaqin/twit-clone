@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
       .from("conversations")
       .select("id")
       .or(
-        `and(participant1_id.eq.${user.id},participant2_id.eq.${recipient.id}),and(participant1_id.eq.${recipient.id},participant2_id.eq.${user.id})`,
+        `and(participant_1.eq.${user.id},participant_2.eq.${recipient.id}),and(participant_1.eq.${recipient.id},participant_2.eq.${user.id})`,
       )
       .single()
 
@@ -58,8 +58,8 @@ export async function POST(request: NextRequest) {
     const { data: conversation, error: convError } = await supabase
       .from("conversations")
       .insert({
-        participant1_id: user.id,
-        participant2_id: recipient.id,
+        participant_1: user.id,
+        participant_2: recipient.id,
       })
       .select()
       .single()

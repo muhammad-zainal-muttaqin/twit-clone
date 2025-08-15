@@ -22,10 +22,10 @@ export async function GET(request: NextRequest) {
     if (conversationId) {
       // Get messages for a specific conversation
       const { data: messages, error } = await supabase
-        .from("messages")
+        .from("direct_messages")
         .select(`
           *,
-          sender:profiles!messages_sender_id_fkey(id, username, display_name, avatar_url)
+          sender:profiles!direct_messages_sender_id_fkey(id, username, display_name, avatar_url)
         `)
         .eq("conversation_id", conversationId)
         .order("created_at", { ascending: true })
@@ -47,12 +47,12 @@ export async function GET(request: NextRequest) {
         .from("conversations")
         .select(`
           *,
-          participant1:profiles!conversations_participant1_id_fkey(id, username, display_name, avatar_url),
-          participant2:profiles!conversations_participant2_id_fkey(id, username, display_name, avatar_url),
-          last_message:messages(content, created_at, sender_id)
+          participant1:profiles!conversations_participant_1_fkey(id, username, display_name, avatar_url),
+          participant2:profiles!conversations_participant_2_fkey(id, username, display_name, avatar_url),
+          last_message:direct_messages(content, created_at, sender_id)
         `)
-        .or(`participant1_id.eq.${user.id},participant2_id.eq.${user.id}`)
-        .order("updated_at", { ascending: false })
+        .or(`participant_1.eq.${user.id},participant_2.eq.${user.id}`)
+        .order("last_message_at", { ascending: false })
 
       if (error) throw error
 
@@ -93,7 +93,7 @@ export async function POST(request: NextRequest) {
       .from("conversations")
       .select("*")
       .or(
-        `and(participant1_id.eq.${user.id},participant2_id.eq.${recipient_id}),and(participant1_id.eq.${recipient_id},participant2_id.eq.${user.id})`,
+        `and(participant_1.eq.${user.id},participant_2.eq.${recipient_id}),and(participant_1.eq.${recipient_id},participant_2.eq.${user.id})`,
       )
       .single()
 
@@ -102,8 +102,8 @@ export async function POST(request: NextRequest) {
       const { data: newConv, error: createError } = await supabase
         .from("conversations")
         .insert({
-          participant1_id: user.id,
-          participant2_id: recipient_id,
+          participant_1: user.id,
+          participant_2: recipient_id,
         })
         .select()
         .single()
@@ -116,7 +116,7 @@ export async function POST(request: NextRequest) {
 
     // Send message
     const { data: message, error: messageError } = await supabase
-      .from("messages")
+      .from("direct_messages")
       .insert({
         conversation_id: conversation.id,
         sender_id: user.id,
@@ -124,14 +124,14 @@ export async function POST(request: NextRequest) {
       })
       .select(`
         *,
-        sender:profiles!messages_sender_id_fkey(id, username, display_name, avatar_url)
+        sender:profiles!direct_messages_sender_id_fkey(id, username, display_name, avatar_url)
       `)
       .single()
 
     if (messageError) throw messageError
 
     // Update conversation timestamp
-    await supabase.from("conversations").update({ updated_at: new Date().toISOString() }).eq("id", conversation.id)
+    await supabase.from("conversations").update({ last_message_at: new Date().toISOString() }).eq("id", conversation.id)
 
     return NextResponse.json({ message })
   } catch (error) {
