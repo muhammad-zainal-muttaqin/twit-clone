@@ -14,23 +14,25 @@ A modern, full-featured Twitter/X clone built with **Next.js 15**, **Supabase**,
 ## ✨ Key Features
 
 ### 🎯 Core Social Media Features
-- **🔐 Authentication** — Sign up, login, logout with email verification
+- **🔐 Authentication** — Sign up, login, logout with email verification and secure session management
 - **📝 Tweet Management** — Post, like, retweet, reply with real-time updates
 - **👤 User Profiles** — Customizable profiles with bio, avatar, and follow counts
 - **👥 Follow System** — Follow/unfollow users, view followers/following lists
 - **📱 Timeline Feeds** — "For You" and "Following" personalized feeds
 - **🔍 Search & Explore** — Find tweets, users, hashtags with dedicated explore page
 - **🔖 Bookmarks** — Save and organize tweets for later viewing
+- **🗑️ Account Management** — Secure account deletion with confirmation process
 
 ### 🚀 Advanced Features
 - **⚡ Real-time Updates** — Live notifications, tweet updates, and messaging
 - **💬 Direct Messaging** — Private conversations with real-time chat interface
 - **🔥 Trending Topics** — Discover popular hashtags and trending content
 - **📤 Tweet Sharing** — Share tweets via Web Share API or external platforms
-- **⚙️ Settings Management** — Comprehensive user settings with privacy controls
+- **⚙️ Settings Management** — Comprehensive user settings with privacy controls and account deletion
 - **🔔 Notifications System** — Real-time notification badges and timeline
-- **📱 Responsive Design** — Mobile-first design that works on all devices
+- **📱 Responsive Design** — Mobile-first design that works on all devices with compact layouts
 - **🌙 Dark Theme** — Modern dark theme with custom color palette
+- **✅ Success Notifications** — Clear feedback for user actions like signup and account operations
 
 ## 🛠 Tech Stack
 
@@ -104,6 +106,7 @@ Execute the SQL scripts in Supabase SQL Editor in the following order:
 1. scripts/01-restore-twitter-schema.sql
 2. scripts/02-create-functions-and-triggers.sql
 3. scripts/07-create-bookmarks-table.sql
+4. scripts/09-recreate-signup-trigger.sql  # Added latest signup trigger fix
 \`\`\`
 
 ### 4. Run Development Server
@@ -151,6 +154,12 @@ twitter-clone/
 \`\`\`
 
 ## 🔧 Key Features Implementation
+
+### Authentication & Security
+- **Email Verification** — Secure signup with email confirmation links
+- **Session Management** — Proper cookie handling and session persistence
+- **Account Deletion** — Secure account removal with data cleanup and confirmation
+- **Error Handling** — Comprehensive error messages and user feedback
 
 ### Real-time System
 - **Supabase Subscriptions** — Live updates for tweets, messages, notifications
@@ -208,6 +217,8 @@ npm start
 1. **Font not loading** — Ensure Inter font is properly imported
 2. **Real-time not working** — Check Supabase connection and RLS policies
 3. **Build errors** — Clear `.next` folder and reinstall dependencies
+4. **Authentication issues** — Verify email redirect URLs and environment variables
+5. **Account deletion not working** — Ensure service role key has proper permissions
 
 ### Development Tips
 - Use `npm run dev` for development
