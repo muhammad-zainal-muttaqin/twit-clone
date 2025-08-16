@@ -44,26 +44,36 @@ export function ProfileTabs({ profile, tweets }: ProfileTabsProps) {
     { id: "likes", label: "Likes", count: 0 },
   ]
 
+  const activeIndex = tabs.findIndex((t) => t.id === activeTab)
+
   return (
     <div>
       {/* Tab Navigation */}
       <div className="border-b border-border">
-        <div className="flex">
-          {tabs.map((tab) => (
-            <Button
-              key={tab.id}
-              variant="ghost"
-              className={`flex-1 rounded-none border-b-2 py-4 ${
-                activeTab === tab.id
-                  ? "border-primary text-primary"
-                  : "border-transparent text-muted-foreground hover:text-foreground"
-              }`}
-              onClick={() => setActiveTab(tab.id)}
-            >
-              <span className="font-medium">{tab.label}</span>
-              {tab.count > 0 && <span className="ml-1 text-sm">({tab.count})</span>}
-            </Button>
-          ))}
+        <div className="relative">
+          <div className="flex">
+            {tabs.map((tab) => (
+              <Button
+                key={tab.id}
+                variant="ghost"
+                className={`flex-1 rounded-none py-4 text-sm font-medium transition-colors ${
+                  activeTab === tab.id
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+                onClick={() => setActiveTab(tab.id)}
+                aria-pressed={activeTab === tab.id}
+              >
+                <span>{tab.label}</span>
+                {tab.count > 0 && <span className="ml-1 text-xs text-muted-foreground">{tab.count}</span>}
+              </Button>
+            ))}
+          </div>
+          {/* Active indicator */}
+          <span
+            className="pointer-events-none absolute bottom-0 left-0 h-0.5 bg-primary transition-transform duration-300"
+            style={{ width: `${100 / tabs.length}%`, transform: `translateX(${activeIndex * 100}%)` }}
+          />
         </div>
       </div>
 
@@ -72,10 +82,15 @@ export function ProfileTabs({ profile, tweets }: ProfileTabsProps) {
         {activeTab === "tweets" && (
           <div>
             {tweets.length === 0 ? (
-              <div className="p-8 text-center">
+              <div className="p-10 text-center">
                 <p className="text-muted-foreground">
                   {profile.isCurrentUser ? "You haven't tweeted yet." : `@${profile.username} hasn't tweeted yet.`}
                 </p>
+                {profile.isCurrentUser && (
+                  <div className="mt-4">
+                    <Button className="rounded-full">Compose your first post</Button>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="divide-y divide-border">

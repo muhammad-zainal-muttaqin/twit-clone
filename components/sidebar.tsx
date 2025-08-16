@@ -79,7 +79,7 @@ export function Sidebar({ isMobile, onClose }: SidebarProps) {
   }
 
   return (
-    <div className={cn("flex h-screen flex-col bg-sidebar border-r border-sidebar-border overflow-y-auto scrollbar-hide", isMobile ? "w-72" : "w-20 sm:w-[275px]")}>
+    <div className={cn("flex h-screen flex-col bg-sidebar border-r border-sidebar-border overflow-y-auto scrollbar-hide", isMobile ? "w-72" : "w-20 xl:w-[275px]")}>
       {/* Mobile Close Button */}
       {isMobile && (
         <div className="flex items-center justify-between p-4 border-b border-sidebar-border">
@@ -91,7 +91,7 @@ export function Sidebar({ isMobile, onClose }: SidebarProps) {
       )}
 
       {/* Logo */}
-      <div className={cn("flex items-center border-b border-sidebar-border", isMobile ? "h-16 px-6" : "h-16 px-3 sm:px-6")}>
+      <div className={cn("flex items-center border-b border-sidebar-border", isMobile ? "h-16 px-6" : "h-16 px-3 xl:px-6")}>
         <div className="flex items-center justify-center">
           <div className="flex h-9 w-9 items-center justify-center rounded-full">
             <span className="text-2xl leading-none">𝕏</span>
@@ -100,7 +100,7 @@ export function Sidebar({ isMobile, onClose }: SidebarProps) {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 space-y-1 px-2 sm:px-3 py-4">
+      <nav className="flex-1 space-y-1 px-2 xl:px-3 py-4">
         {updatedNavigation.map((item) => {
           const isActive = pathname === item.href
           return (
@@ -112,7 +112,9 @@ export function Sidebar({ isMobile, onClose }: SidebarProps) {
                   "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
                   isActive && "bg-sidebar-primary text-sidebar-primary-foreground hover:bg-sidebar-primary",
                   !item.implemented && "opacity-60",
-                  isMobile ? "justify-start px-3 py-4" : "justify-center sm:justify-start px-2 sm:px-3 py-3 sm:py-3.5",
+                  isMobile
+                    ? "justify-start px-3 py-4"
+                    : "justify-center xl:justify-start px-2 xl:px-3 py-3 xl:py-3.5",
                 )}
               >
                 <div className="relative flex-shrink-0">
@@ -122,7 +124,7 @@ export function Sidebar({ isMobile, onClose }: SidebarProps) {
                     <div className="absolute -top-1 -right-1 h-2 w-2 bg-muted-foreground rounded-full"></div>
                   )}
                 </div>
-                <span className={cn(!isMobile && "hidden sm:block")}>
+                <span className={cn(!isMobile && "hidden xl:block")}> 
                   {item.name}
                   {!item.implemented && (
                     <span className="ml-2 text-xs text-muted-foreground">(Coming Soon)</span>
@@ -135,27 +137,27 @@ export function Sidebar({ isMobile, onClose }: SidebarProps) {
       </nav>
 
       {/* Post Button */}
-      <div className="p-3 sm:p-4">
+      <div className="p-3 xl:p-4">
         <Button
           className={cn(
             "bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-full",
-            isMobile ? "w-full py-3.5" : "w-12 h-12 sm:w-full sm:py-3.5",
+            isMobile ? "w-full py-3.5" : "w-12 h-12 xl:w-full xl:py-3.5",
           )}
         >
-          <span className={cn(!isMobile && "hidden sm:block")}>Post</span>
-          <span className={cn("text-base", !isMobile && "sm:hidden")}>𝕏</span>
+          <span className={cn(!isMobile && "hidden xl:block")}>Post</span>
+          <span className={cn("text-base", !isMobile && "xl:hidden")}>𝕏</span>
         </Button>
       </div>
 
       {/* User Profile */}
-      <div className="border-t border-sidebar-border p-2 sm:p-4">
+      <div className="border-t border-sidebar-border p-2 xl:p-4">
         {profile?.profile ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <div
                 className={cn(
                   "flex items-center hover:bg-sidebar-accent rounded-lg p-2 transition-colors cursor-pointer",
-                  isMobile ? "gap-3" : "gap-0 sm:gap-3 justify-center sm:justify-start",
+                  isMobile ? "gap-3" : "gap-0 xl:gap-3 justify-center xl:justify-start",
                 )}
               >
                 <Avatar className="h-10 w-10 flex-shrink-0">
@@ -164,13 +166,11 @@ export function Sidebar({ isMobile, onClose }: SidebarProps) {
                     {profile.profile.display_name?.charAt(0) || profile.profile.username?.charAt(0) || "U"}
                   </AvatarFallback>
                 </Avatar>
-                <div className={cn("flex-1 min-w-0", !isMobile && "hidden sm:block")}>
+                <div className={cn("flex-1 min-w-0", !isMobile && "hidden xl:block")}>
                   <p className="text-sm font-medium text-sidebar-foreground truncate">{profile.profile.display_name}</p>
                   <p className="text-sm text-muted-foreground truncate">@{profile.profile.username}</p>
                 </div>
-                <MoreHorizontal
-                  className={cn("h-5 w-5 text-muted-foreground flex-shrink-0", !isMobile && "hidden sm:block")}
-                />
+                <MoreHorizontal className={cn("h-5 w-5 text-muted-foreground flex-shrink-0", !isMobile && "hidden xl:block")} />
               </div>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">

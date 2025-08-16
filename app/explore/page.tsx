@@ -95,7 +95,7 @@ export default function ExplorePage() {
 
   return (
     <MainLayout>
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-[525px] mx-auto">
         {/* Header with Search */}
         <div className="sticky top-0 bg-background/80 backdrop-blur-md border-b border-border p-4">
           <form onSubmit={handleSearch}>

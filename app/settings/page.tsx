@@ -105,7 +105,7 @@ export default function SettingsPage() {
   if (isLoading) {
     return (
       <MainLayout>
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-[525px] mx-auto">
           <div className="p-8 text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
             <p className="text-muted-foreground mt-2">Loading settings...</p>
@@ -117,7 +117,7 @@ export default function SettingsPage() {
 
   return (
     <MainLayout>
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-[525px] mx-auto">
         {/* Header */}
         <div className="sticky top-0 bg-background/80 backdrop-blur-md border-b border-border p-4">
           <div className="flex items-center gap-4">

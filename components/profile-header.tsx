@@ -71,9 +71,9 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
   const joinedDate = formatDistanceToNow(new Date(profile.created_at), { addSuffix: true })
 
   return (
-    <div className="bg-card border-b border-border">
+    <div className="bg-card">
       {/* Banner */}
-      <div className="h-48 bg-gradient-to-r from-primary/20 to-accent/20 relative">
+      <div className="relative h-52 overflow-hidden bg-gradient-to-r from-primary/20 to-accent/20">
         {profile.banner_url && (
           <img
             src={profile.banner_url || "/placeholder.svg"}
@@ -81,33 +81,38 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
             className="w-full h-full object-cover"
           />
         )}
-      </div>
-
-      {/* Profile Info */}
-      <div className="px-4 pb-4">
-        <div className="flex justify-between items-start -mt-16 mb-4">
-          <Avatar className="h-32 w-32 border-4 border-card">
-            <AvatarImage src={profile.avatar_url || "/placeholder.svg"} />
+        {/* Avatar overlays the bottom of the banner */}
+        <div className="absolute -bottom-16 left-4 md:left-6 z-20">
+          <Avatar className="h-32 w-32 border-4 border-card ring-2 ring-background rounded-full shadow-xl">
+            <AvatarImage src={profile.avatar_url || "/placeholder.svg"} alt={`${profile.display_name || profile.username} avatar`} />
             <AvatarFallback className="bg-muted text-muted-foreground text-2xl">
               {profile.display_name?.charAt(0) || profile.username?.charAt(0) || "U"}
             </AvatarFallback>
           </Avatar>
+        </div>
+      </div>
 
-          <div className="mt-16">
+      {/* Profile Info */}
+      <div className="px-4 pb-4 pt-24">
+        <div className="flex justify-between items-start mb-3">
+          <div className="h-0" />
+
+          <div className="mt-2">
             {profile.isCurrentUser ? (
-              <Button variant="outline" className="rounded-full px-6 bg-transparent">
+              <Button variant="outline" className="rounded-full px-6 bg-transparent hover:bg-muted/50" aria-label="Edit profile">
                 Edit profile
               </Button>
             ) : (
               <Button
                 onClick={handleFollowToggle}
                 disabled={isLoading}
-                className={`rounded-full px-6 ${
+                className={`rounded-full px-6 transition-colors ${
                   isFollowing
-                    ? "bg-transparent border border-border text-foreground hover:bg-destructive hover:text-destructive-foreground hover:border-destructive"
+                    ? "bg-transparent border border-border text-foreground hover:bg-muted/50"
                     : "bg-primary hover:bg-primary/90 text-primary-foreground"
                 }`}
                 variant={isFollowing ? "outline" : "default"}
+                aria-pressed={isFollowing}
               >
                 {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : isFollowing ? "Unfollow" : "Follow"}
               </Button>

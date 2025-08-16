@@ -8,15 +8,15 @@ import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 interface ProfilePageProps {
-  params: {
+  params: Promise<{
     username: string
-  }
+  }>
 }
 
 function ProfileNotFound({ username }: { username: string }) {
   return (
     <MainLayout>
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-[525px] mx-auto">
         <div className="sticky top-0 bg-background/80 backdrop-blur-md border-b border-border p-4">
           <div className="flex items-center gap-4">
             <Link href="/">
@@ -43,6 +43,7 @@ function ProfileNotFound({ username }: { username: string }) {
 }
 
 export default async function ProfilePage({ params }: ProfilePageProps) {
+  const { username } = await params
   try {
     // Get the current user
     const supabase = await createClient()
@@ -55,24 +56,24 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
       redirect("/auth/login")
     }
 
-    if (!params.username || params.username.trim() === "") {
-      return <ProfileNotFound username={params.username} />
+    if (!username || username.trim() === "") {
+      return <ProfileNotFound username={username} />
     }
 
     // Get profile data
     const { data: profiles, error: profileError } = await supabase
       .from("profiles")
       .select("*")
-      .eq("username", params.username.trim())
+      .eq("username", username.trim())
 
     if (profileError) {
       console.log("[v0] Profile lookup error:", profileError.message)
-      return <ProfileNotFound username={params.username} />
+      return <ProfileNotFound username={username} />
     }
 
     if (!profiles || profiles.length === 0) {
-      console.log("[v0] Profile not found for username:", params.username)
-      return <ProfileNotFound username={params.username} />
+      console.log("[v0] Profile not found for username:", username)
+      return <ProfileNotFound username={username} />
     }
 
     // Use the first profile if multiple exist
@@ -111,7 +112,34 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
       .order("created_at", { ascending: false })
       .limit(20)
 
-    const processedTweets = tweets?.map((tweet) => ({
+    // Types for tweets returned from Supabase and UI-augmented tweets
+    type DBTweet = {
+      id: string
+      user_id: string
+      content: string
+      created_at: string
+      likes_count: number
+      retweets_count: number
+      replies_count: number
+      reply_to?: string | null
+      profiles: {
+        id: string
+        username: string
+        display_name: string
+        avatar_url?: string
+        verified: boolean
+      }
+    }
+
+    type UITweet = DBTweet & {
+      like_count: number
+      retweet_count: number
+      reply_count: number
+      user_liked: boolean
+      user_retweeted: boolean
+    }
+
+    const processedTweets: UITweet[] | undefined = tweets?.map((tweet: DBTweet) => ({
       ...tweet,
       like_count: tweet.likes_count,
       retweet_count: tweet.retweets_count,
@@ -128,9 +156,9 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
 
     return (
       <MainLayout>
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-[525px] mx-auto">
           {/* Header */}
-          <div className="sticky top-0 bg-background/80 backdrop-blur-md border-b border-border p-4">
+          <div className="sticky top-0 z-30 bg-background/80 backdrop-blur-md border-b border-transparent p-4">
             <div>
               <h1 className="text-xl font-bold text-foreground">{profile.display_name || profile.username}</h1>
               <p className="text-sm text-muted-foreground">{profile.tweets_count} Tweets</p>
@@ -147,6 +175,6 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
     )
   } catch (error) {
     console.log("[v0] ProfilePage error:", error)
-    return <ProfileNotFound username={params.username} />
+    return <ProfileNotFound username={username} />
   }
 }

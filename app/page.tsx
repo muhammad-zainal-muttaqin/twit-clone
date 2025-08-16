@@ -26,7 +26,7 @@ export default async function Home() {
 
   return (
     <MainLayout>
-      <div className="max-w-[600px] mx-auto">
+      <div className="max-w-[525px] mx-auto">
         <HomeTimeline user={user} />
       </div>
     </MainLayout>

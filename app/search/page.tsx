@@ -24,7 +24,7 @@ export default function SearchPage() {
 
   return (
     <MainLayout>
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-[525px] mx-auto">
         {/* Header */}
         <div className="sticky top-0 bg-background/80 backdrop-blur-md border-b border-border p-4">
           <div className="flex items-center gap-4">
