@@ -91,16 +91,16 @@ export function Sidebar({ isMobile, onClose }: SidebarProps) {
       )}
 
       {/* Logo */}
-      <div className={cn("flex items-center border-b border-sidebar-border", isMobile ? "h-16 px-6" : "h-16 px-3 xl:px-6")}>
+      <div className={cn("flex items-center justify-center xl:justify-start border-b border-sidebar-border", isMobile ? "h-16 px-6" : "h-16 px-0 xl:px-5")}>
         <div className="flex items-center justify-center">
-          <div className="flex h-9 w-9 items-center justify-center rounded-full">
+          <div className="flex h-9 w-9 xl:h-6 xl:w-6 items-center justify-center rounded-full">
             <span className="text-2xl leading-none">𝕏</span>
           </div>
         </div>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 space-y-1 px-2 xl:px-3 py-4">
+      <nav className="flex-1 space-y-1 px-0 xl:px-3 py-4">
         {updatedNavigation.map((item) => {
           const isActive = pathname === item.href
           return (
@@ -114,7 +114,7 @@ export function Sidebar({ isMobile, onClose }: SidebarProps) {
                   !item.implemented && "opacity-60",
                   isMobile
                     ? "justify-start px-3 py-4"
-                    : "justify-center xl:justify-start px-2 xl:px-3 py-3 xl:py-3.5",
+                    : "justify-center xl:justify-start px-0 xl:px-3 py-3 xl:py-3.5",
                 )}
               >
                 <div className="relative flex-shrink-0">
@@ -137,7 +137,7 @@ export function Sidebar({ isMobile, onClose }: SidebarProps) {
       </nav>
 
       {/* Post Button */}
-      <div className="p-3 xl:p-4">
+      <div className="px-0 py-3 xl:p-4 flex justify-center xl:block">
         <Button
           className={cn(
             "bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-full",
@@ -150,7 +150,7 @@ export function Sidebar({ isMobile, onClose }: SidebarProps) {
       </div>
 
       {/* User Profile */}
-      <div className="border-t border-sidebar-border p-2 xl:p-4">
+      <div className="border-t border-sidebar-border px-0 py-2 xl:p-4">
         {profile?.profile ? (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
