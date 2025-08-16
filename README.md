@@ -64,7 +64,7 @@ A modern, full-featured Twitter/X clone built with **Next.js 15**, **Supabase**,
 - **Supabase account** ([Sign up here](https://supabase.com/))
 
 ### 1. Clone Repository
-\`\`\`bash
+```bash
 git clone https://github.com/your-username/twitter-clone.git
 cd twitter-clone
 npm install
@@ -72,12 +72,12 @@ npm install
 yarn install
 # or
 pnpm install
-\`\`\`
+```
 
 ### 2. Environment Setup
 Create `.env.local` file in the root directory:
 
-\`\`\`env
+```env
 # Supabase Configuration
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
@@ -96,33 +96,33 @@ POSTGRES_HOST=your_postgres_host
 # App Configuration
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL=http://localhost:3000
-\`\`\`
+```
 
 ### 3. Database Setup
 Execute the SQL scripts in Supabase SQL Editor in the following order:
 
-\`\`\`bash
+```bash
 # Run these scripts in your Supabase SQL Editor:
 1. scripts/01-restore-twitter-schema.sql
 2. scripts/02-create-functions-and-triggers.sql
 3. scripts/07-create-bookmarks-table.sql
 4. scripts/09-recreate-signup-trigger.sql  # Added latest signup trigger fix
-\`\`\`
+```
 
 ### 4. Run Development Server
-\`\`\`bash
+```bash
 npm run dev
 # or
 yarn dev
 # or
 pnpm dev
-\`\`\`
+```
 
 Visit **[http://localhost:3000](http://localhost:3000)** to see the application.
 
 ## 📁 Project Structure
 
-\`\`\`
+```
 twitter-clone/
 ├── app/                    # Next.js 15 app directory
 │   ├── api/               # API routes (tweets, users, messages, etc.)
@@ -151,7 +151,7 @@ twitter-clone/
 │   └── utils.ts          # Utility functions
 ├── scripts/               # Database SQL scripts
 └── styles/                # Global styles
-\`\`\`
+```
 
 ## 🔧 Key Features Implementation
 
@@ -187,10 +187,10 @@ twitter-clone/
 4. Enable Vercel Analytics and Speed Insights
 
 ### Manual Deployment
-\`\`\`bash
+```bash
 npm run build
 npm start
-\`\`\`
+```
 
 ## 🔒 Environment Variables
 
