@@ -132,12 +132,15 @@ export default function SettingsPage() {
       })
 
       if (response.ok) {
-        // Redirect to login page after successful deletion
-        router.push("/auth/login?message=Account deleted successfully")
+        const data = await response.json()
+        alert("Account deleted successfully. You will be redirected to the login page.")
+        window.location.href = data.redirect || "/auth/login?message=account_deleted"
       } else {
+        alert("Failed to delete account. Please try again.")
         console.error("Error deleting account")
       }
     } catch (error) {
+      alert("An error occurred while deleting your account. Please try again.")
       console.error("Error deleting account:", error)
     } finally {
       setIsDeleting(false)
