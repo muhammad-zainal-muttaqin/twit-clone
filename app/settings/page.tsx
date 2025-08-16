@@ -9,9 +9,21 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Switch } from "@/components/ui/switch"
-import { ArrowLeft, User, Bell, Shield, Palette, SettingsIcon } from "lucide-react"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { ArrowLeft, User, Bell, Shield, Palette, SettingsIcon, Trash2 } from "lucide-react"
 import Link from "next/link"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { useRouter } from "next/navigation"
 
 interface Profile {
   id: string
@@ -24,30 +36,29 @@ interface Profile {
   verified: boolean
 }
 
+const sections = [
+  { id: "account", icon: User, label: "Account" },
+  { id: "notifications", icon: Bell, label: "Notifications" },
+  { id: "privacy", icon: Shield, label: "Privacy" },
+  { id: "display", icon: Palette, label: "Display" },
+]
+
 export default function SettingsPage() {
   const [profile, setProfile] = useState<Profile | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isSaving, setIsSaving] = useState(false)
   const [activeSection, setActiveSection] = useState("account")
-
-  // Form states
+  const [isDeleting, setIsDeleting] = useState(false)
+  const [deleteConfirmation, setDeleteConfirmation] = useState("")
   const [displayName, setDisplayName] = useState("")
   const [bio, setBio] = useState("")
   const [location, setLocation] = useState("")
   const [website, setWebsite] = useState("")
-
-  // Settings states
-  const [emailNotifications, setEmailNotifications] = useState(true)
-  const [pushNotifications, setPushNotifications] = useState(true)
+  const [emailNotifications, setEmailNotifications] = useState(false)
+  const [pushNotifications, setPushNotifications] = useState(false)
   const [privateAccount, setPrivateAccount] = useState(false)
   const [darkMode, setDarkMode] = useState(false)
-
-  const sections = [
-    { id: "account", label: "Account", icon: User },
-    { id: "notifications", label: "Notifications", icon: Bell },
-    { id: "privacy", label: "Privacy and safety", icon: Shield },
-    { id: "display", label: "Display", icon: Palette },
-  ]
+  const router = useRouter()
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -61,6 +72,10 @@ export default function SettingsPage() {
           setBio(profileData.bio || "")
           setLocation(profileData.location || "")
           setWebsite(profileData.website || "")
+          setEmailNotifications(profileData.email_notifications || false)
+          setPushNotifications(profileData.push_notifications || false)
+          setPrivateAccount(profileData.private_account || false)
+          setDarkMode(profileData.dark_mode || false)
         }
       } catch (error) {
         console.error("Error fetching profile:", error)
@@ -99,6 +114,33 @@ export default function SettingsPage() {
       console.error("Error updating profile:", error)
     } finally {
       setIsSaving(false)
+    }
+  }
+
+  const handleDeleteAccount = async () => {
+    if (deleteConfirmation !== "DELETE") {
+      return
+    }
+
+    setIsDeleting(true)
+    try {
+      const response = await fetch("/api/account/delete", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+
+      if (response.ok) {
+        // Redirect to login page after successful deletion
+        router.push("/auth/login?message=Account deleted successfully")
+      } else {
+        console.error("Error deleting account")
+      }
+    } catch (error) {
+      console.error("Error deleting account:", error)
+    } finally {
+      setIsDeleting(false)
     }
   }
 
@@ -291,6 +333,69 @@ export default function SettingsPage() {
                         <p className="text-sm text-muted-foreground">Only approved followers can see your tweets</p>
                       </div>
                       <Switch checked={privateAccount} onCheckedChange={setPrivateAccount} />
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Danger Zone Card for Account Deletion */}
+                <Card className="border-destructive/50">
+                  <CardHeader>
+                    <CardTitle className="text-destructive flex items-center gap-2">
+                      <Trash2 className="h-5 w-5" />
+                      Danger Zone
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div>
+                      <p className="font-medium text-destructive">Delete Account</p>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        Permanently delete your account and all associated data. This action cannot be undone.
+                      </p>
+
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button variant="destructive" size="sm">
+                            Delete Account
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                            <AlertDialogDescription className="space-y-2">
+                              <p>
+                                This action cannot be undone. This will permanently delete your account and remove all
+                                your data from our servers.
+                              </p>
+                              <p>This includes:</p>
+                              <ul className="list-disc list-inside text-sm space-y-1">
+                                <li>All your tweets and replies</li>
+                                <li>Your profile information</li>
+                                <li>Your followers and following lists</li>
+                                <li>All your messages and conversations</li>
+                                <li>Your bookmarks and likes</li>
+                              </ul>
+                              <p className="font-medium mt-4">Type "DELETE" to confirm:</p>
+                            </AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <div className="my-4">
+                            <Input
+                              placeholder="Type DELETE to confirm"
+                              value={deleteConfirmation}
+                              onChange={(e) => setDeleteConfirmation(e.target.value)}
+                            />
+                          </div>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel onClick={() => setDeleteConfirmation("")}>Cancel</AlertDialogCancel>
+                            <AlertDialogAction
+                              onClick={handleDeleteAccount}
+                              disabled={deleteConfirmation !== "DELETE" || isDeleting}
+                              className="bg-destructive hover:bg-destructive/90"
+                            >
+                              {isDeleting ? "Deleting..." : "Delete Account"}
+                            </AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
                     </div>
                   </CardContent>
                 </Card>
