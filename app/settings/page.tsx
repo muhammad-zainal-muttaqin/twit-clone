@@ -352,7 +352,7 @@ export default function SettingsPage() {
                     <div>
                       <p className="font-medium text-destructive">Delete Account</p>
                       <p className="text-sm text-muted-foreground mb-4">
-                        Permanently delete your account and all associated data. This action cannot be undone.
+                        Permanently delete your account and remove all your data from our servers.
                       </p>
 
                       <AlertDialog>
@@ -365,11 +365,11 @@ export default function SettingsPage() {
                           <AlertDialogHeader>
                             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                             <AlertDialogDescription className="space-y-2">
-                              <p>
+                              <div>
                                 This action cannot be undone. This will permanently delete your account and remove all
                                 your data from our servers.
-                              </p>
-                              <p>This includes:</p>
+                              </div>
+                              <div>This includes:</div>
                               <ul className="list-disc list-inside text-sm space-y-1">
                                 <li>All your tweets and replies</li>
                                 <li>Your profile information</li>
@@ -377,7 +377,7 @@ export default function SettingsPage() {
                                 <li>All your messages and conversations</li>
                                 <li>Your bookmarks and likes</li>
                               </ul>
-                              <p className="font-medium mt-4">Type "DELETE" to confirm:</p>
+                              <div className="font-medium mt-4">Type "DELETE" to confirm:</div>
                             </AlertDialogDescription>
                           </AlertDialogHeader>
                           <div className="my-4">
