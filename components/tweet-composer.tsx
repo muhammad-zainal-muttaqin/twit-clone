@@ -109,7 +109,7 @@ export function TweetComposer({ user, onTweetPosted, replyToUsername }: TweetCom
   }
 
   return (
-    <div className="border-b border-l border-r border-border bg-card/50 hover:bg-card/70 transition-colors">
+    <div className="border-b border-l border-r border-border bg-background transition-colors">
       <div className="p-4">
         <form onSubmit={handleSubmit}>
           <div className="flex gap-3">
@@ -139,11 +139,18 @@ export function TweetComposer({ user, onTweetPosted, replyToUsername }: TweetCom
 
               {/* Reply / Audience placeholders */}
               <div className="flex items-center gap-2 text-sm text-muted-foreground mt-2">
-                <Button type="button" variant="ghost" size="sm" className="h-7 rounded-full px-2.5 text-muted-foreground hover:text-foreground hover:bg-foreground/10">
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  className="h-7 rounded-full px-2.5 text-muted-foreground hover:text-foreground hover:bg-foreground/10"
+                >
                   <Globe className="h-3.5 w-3.5 mr-1" /> Everyone
                 </Button>
                 {replyToUsername && (
-                  <span className="truncate">Replying to <span className="text-primary">@{replyToUsername}</span></span>
+                  <span className="truncate">
+                    Replying to <span className="text-primary">@{replyToUsername}</span>
+                  </span>
                 )}
               </div>
 
@@ -153,7 +160,11 @@ export function TweetComposer({ user, onTweetPosted, replyToUsername }: TweetCom
                   {previews.map((src, i) => (
                     <div key={i} className="relative group bg-muted/20">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={src} alt={`attachment-${i}`} className="w-full h-36 object-cover" />
+                      <img
+                        src={src || "/placeholder.svg"}
+                        alt={`attachment-${i}`}
+                        className="w-full h-36 object-cover"
+                      />
                       <button
                         type="button"
                         onClick={() => removeImageAt(i)}
@@ -178,13 +189,28 @@ export function TweetComposer({ user, onTweetPosted, replyToUsername }: TweetCom
                   >
                     <ImageIcon className="h-5 w-5" />
                   </Button>
-                  <Button type="button" variant="ghost" size="icon" className="h-9 w-9 rounded-full text-primary/70 hover:bg-primary/10 hover:text-primary">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    className="h-9 w-9 rounded-full text-primary/70 hover:bg-primary/10 hover:text-primary"
+                  >
                     <Smile className="h-5 w-5" />
                   </Button>
-                  <Button type="button" variant="ghost" size="icon" className="h-9 w-9 rounded-full text-primary/70 hover:bg-primary/10 hover:text-primary">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    className="h-9 w-9 rounded-full text-primary/70 hover:bg-primary/10 hover:text-primary"
+                  >
                     <Calendar className="h-5 w-5" />
                   </Button>
-                  <Button type="button" variant="ghost" size="icon" className="h-9 w-9 rounded-full text-primary/70 hover:bg-primary/10 hover:text-primary">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    className="h-9 w-9 rounded-full text-primary/70 hover:bg-primary/10 hover:text-primary"
+                  >
                     <MapPin className="h-5 w-5" />
                   </Button>
                   <input
@@ -201,12 +227,25 @@ export function TweetComposer({ user, onTweetPosted, replyToUsername }: TweetCom
                   {content.length > 0 && (
                     <div className="relative w-8 h-8 mr-1 shrink-0">
                       <svg viewBox="0 0 36 36" className="absolute inset-0 -rotate-90">
-                        <circle cx="18" cy="18" r="15" className="stroke-muted-foreground/20" strokeWidth="3" fill="none" />
                         <circle
                           cx="18"
                           cy="18"
                           r="15"
-                          className={isOverLimit ? "stroke-destructive" : remainingChars <= 20 ? "stroke-yellow-500" : "stroke-sky-500"}
+                          className="stroke-muted-foreground/20"
+                          strokeWidth="3"
+                          fill="none"
+                        />
+                        <circle
+                          cx="18"
+                          cy="18"
+                          r="15"
+                          className={
+                            isOverLimit
+                              ? "stroke-destructive"
+                              : remainingChars <= 20
+                                ? "stroke-yellow-500"
+                                : "stroke-sky-500"
+                          }
                           strokeWidth="3"
                           fill="none"
                           strokeDasharray={Math.PI * 2 * 15}
@@ -215,7 +254,9 @@ export function TweetComposer({ user, onTweetPosted, replyToUsername }: TweetCom
                         />
                       </svg>
                       <div className="absolute inset-0 flex items-center justify-content-center justify-center">
-                        <span className={`text-[10px] ${isOverLimit ? "text-destructive" : remainingChars <= 20 ? "text-yellow-500" : "text-muted-foreground"}`}>
+                        <span
+                          className={`text-[10px] ${isOverLimit ? "text-destructive" : remainingChars <= 20 ? "text-yellow-500" : "text-muted-foreground"}`}
+                        >
                           {remainingChars}
                         </span>
                       </div>
